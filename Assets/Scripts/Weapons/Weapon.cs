@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public abstract class Weapon : MonoBehaviour
 {
     [Header("Vars")]
     public bool isEquipped = false;
@@ -16,18 +17,27 @@ public class Weapon : MonoBehaviour
     public int ammoMax = 1;
     public float reloadTime = 1;
     public float weaponRange = 1000;
-
-    public Transform barrelEnd;
-
+    
     private bool releasedTrigger = true;
     private bool isReloading = false;
+
+    [Header("Required Components")]
+    public AudioClip audioWeaponFire;
+    public AudioClip audioWeaponReload;
+
+    private AudioSource audioSource;
 
     private void Start()
     {
         // Set vars
         fireRateTimer = fireRate;
+
+        // Get components
+        audioSource = GetComponent<AudioSource>();
+
         // Reload weapon
         ammoMagazineCurrent = ammoMagazineMax;
+        
     }
 
     private void Update()
@@ -104,6 +114,8 @@ public class Weapon : MonoBehaviour
     public virtual void FireBullet()
     {
         Debug.Log("Pew!");
+        audioSource.clip = audioWeaponFire;
+        audioSource.Play();
         RaycastHit hit;
 
         // Check if our raycast has hit anything
@@ -147,6 +159,8 @@ public class Weapon : MonoBehaviour
             ammoCurrent = 0;
         }
 
+        audioSource.clip = audioWeaponReload;
+        audioSource.Play();
         Debug.Log("Reloaded");
 
         yield break;
