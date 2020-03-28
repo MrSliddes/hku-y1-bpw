@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IReceiveDamage
 {
-    public int hp = 1;
+    public float hp = 1;
     public float attackRange = 2;
     public int attackDamage = 1;
+
+    public GameObject deathSound;
+
     private GameObject player;
     private NavMeshAgent navMeshAgent;
     private EnemyState enemyState;
@@ -50,7 +53,8 @@ public class Enemy : MonoBehaviour
                 }
 
                 // Chase player
-                EnemyPathfinding();
+                if (Vector3.Distance(transform.position, player.transform.position) <= 10)
+                    EnemyPathfinding();
 
                 // Check if in attacking distance
                 if(EnemyCanAttack(attackRange))
@@ -69,6 +73,7 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyState.dying:
                 // Enemy dies
+                Instantiate(deathSound, transform.position, Quaternion.identity);
                 Destroy(gameObject);
                 break;
             default: Debug.LogError("Error::Enemy::R = Enemy state isnt defined!");
@@ -80,9 +85,9 @@ public class Enemy : MonoBehaviour
     /// Enemy recieves damage
     /// </summary>
     /// <param name="dmg">Amount of damage the enemy recieves</param>
-    public void RecieveDamage(int dmg)
+    public void ReceiveDamage(float amount)
     {
-        hp -= dmg;
+        hp -= amount;
         if (hp < 1)
         {
             // Dead
@@ -132,7 +137,7 @@ public class Enemy : MonoBehaviour
 
     private void AttackPlayer()
     {
-        GameObject.FindWithTag("Player").GetComponent<Player>().PlayerRecieveDamage(attackDamage);
+        GameObject.FindWithTag("Player").GetComponent<Player>().ReceiveDamage(attackDamage);
     }
 }
 

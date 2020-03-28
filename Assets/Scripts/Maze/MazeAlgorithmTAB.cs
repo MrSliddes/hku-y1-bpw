@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// My own rewritten maze algorithm
+/// </summary>
 public class MazeAlgorithmTAB : MazeAlgorithm
 {
     private int currentX = 0;
@@ -129,15 +132,23 @@ public class MazeAlgorithmTAB : MazeAlgorithm
         // No more empty cells, maze is complete
         mazeComplete = true;
 
-        // Create finish gameobject
-        GameObject a = new GameObject();
-        a.name = "Maze Finish Point";
-        MazeGeneration mg = GameObject.FindObjectOfType<MazeGeneration>();
-        int posX = (int)Random.Range(mg.mazeX * 0.5f, mg.mazeX);
-        int posZ = (int)Random.Range(mg.mazeZ * 0.5f, mg.mazeZ);
-        a.transform.position = new Vector3(posX * mg.size, 0, posZ * mg.size);
-        a.transform.SetParent(mg.mazeParent.transform);
-        mazeGeneration.finishPoint = a.transform;
+        // Create 10 paper rolls to collect
+        GameObject a;
+        for (int i = 0; i < 11; i++)
+        {
+            a = mazeGeneration.CreateRoll();
+            a.name = "Paper Roll";
+            MazeGeneration mg = mazeGeneration;
+            int posX = (int)Random.Range(0, mg.mazeX * 0.9f);
+            int posZ = (int)Random.Range(0, mg.mazeZ * 0.9f);
+            a.transform.position = new Vector3(posX * mg.size, 0, posZ * mg.size);
+        }
+
+        // Create 1 hp powerup
+        a = mazeGeneration.CreatePowerupHp();        
+        int hpPosX = (int)Random.Range(mazeGeneration.mazeX * 0.5f, mazeGeneration.mazeX * 0.9f);
+        int hpPosZ = (int)Random.Range(mazeGeneration.mazeZ * 0.5f, mazeGeneration.mazeZ * 0.9f);
+        a.transform.position = new Vector3(hpPosX * mazeGeneration.size, 0, hpPosZ * mazeGeneration.size);
     }
 
     /// <summary>

@@ -24,9 +24,9 @@ public class MazeGeneration : MonoBehaviour
     /// </summary>
     [HideInInspector] public GameObject mazeParent;
     /// <summary>
-    /// The object the player has to reach to enter a new maze
+    /// The stuff the player has to collect
     /// </summary>
-    public GameObject EnterNewMaze;
+    public GameObject toiletPaper;
     /// <summary>
     /// Size of 1 maze cell
     /// </summary>
@@ -47,6 +47,10 @@ public class MazeGeneration : MonoBehaviour
     /// True = When maze gets generated use a random seed
     /// </summary>
     public bool generateRandom = false;
+    /// <summary>
+    /// The gameObject for the hp powerup
+    /// </summary>
+    public GameObject powerupHp;
 
     private MazeCell[,] mazeCells;
     private NavMeshSurface navMeshSurface;
@@ -139,6 +143,10 @@ public class MazeGeneration : MonoBehaviour
 
     public void GenerateMaze()
     {
+        // Increase size
+        mazeX++;
+        mazeZ++;
+
         if(generateRandom)
         {
             mazeSeed = Random.Range(0, 20000000);
@@ -158,9 +166,6 @@ public class MazeGeneration : MonoBehaviour
 
         // Set player to start point and generate new Enter point to new maze for player
         GameObject.FindWithTag("Player").transform.position = startPoint.transform.position;
-        GameObject a = Instantiate(EnterNewMaze, finishPoint.transform.position, Quaternion.identity) as GameObject;
-        a.transform.SetParent(mazeParent.transform);
-        a.GetComponent<EnterNewMaze>().mazeGeneration = this;
 
         StopCoroutine(BuildNavMeshSurface());
         StartCoroutine(BuildNavMeshSurface());
@@ -173,5 +178,15 @@ public class MazeGeneration : MonoBehaviour
         navMeshSurface.BuildNavMesh();
         Debug.Log("Maze Finished");
         yield break;
+    }
+
+    public GameObject CreateRoll()
+    {
+        return Instantiate(toiletPaper, transform.position, Quaternion.identity);
+    }
+
+    public GameObject CreatePowerupHp()
+    {
+        return Instantiate(powerupHp, transform.position, Quaternion.identity);
     }
 }

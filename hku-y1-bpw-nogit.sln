@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshComponents", "NavMeshComponents.csproj", "{F4B49FA0-A368-4A52-D506-9D8A533032F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{3DB8B150-3AC9-C30A-1977-FF5F79BCE903}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshComponentsEditor", "NavMeshComponentsEditor.csproj", "{A575DF15-470C-97D4-DFEE-BECFBEA9A22A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4B49FA0-A368-4A52-D506-9D8A533032F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B49FA0-A368-4A52-D506-9D8A533032F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B49FA0-A368-4A52-D506-9D8A533032F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B49FA0-A368-4A52-D506-9D8A533032F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB8B150-3AC9-C30A-1977-FF5F79BCE903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB8B150-3AC9-C30A-1977-FF5F79BCE903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB8B150-3AC9-C30A-1977-FF5F79BCE903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB8B150-3AC9-C30A-1977-FF5F79BCE903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A575DF15-470C-97D4-DFEE-BECFBEA9A22A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A575DF15-470C-97D4-DFEE-BECFBEA9A22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A575DF15-470C-97D4-DFEE-BECFBEA9A22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A575DF15-470C-97D4-DFEE-BECFBEA9A22A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

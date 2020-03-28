@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(AudioSource))]
 public abstract class Weapon : MonoBehaviour
@@ -24,6 +25,8 @@ public abstract class Weapon : MonoBehaviour
     [Header("Required Components")]
     public AudioClip audioWeaponFire;
     public AudioClip audioWeaponReload;
+    public TextMeshProUGUI weaponText;
+    public ParticleSystem muzzle;
 
     private AudioSource audioSource;
 
@@ -52,6 +55,9 @@ public abstract class Weapon : MonoBehaviour
                 StartCoroutine(ReloadMagazine());
             }
         }
+
+        // Update ui
+        weaponText.text = ammoMagazineCurrent.ToString() + " / " + ammoMagazineMax + " | " + ammoCurrent + " Ammo";
     }
 
     public virtual void CheckTrigger()
@@ -116,6 +122,7 @@ public abstract class Weapon : MonoBehaviour
         Debug.Log("Pew!");
         audioSource.clip = audioWeaponFire;
         audioSource.Play();
+        muzzle.Play();
         RaycastHit hit;
 
         // Check if our raycast has hit anything
@@ -127,7 +134,7 @@ public abstract class Weapon : MonoBehaviour
             if (enemy != null)
             {
                 // Deal damage
-                enemy.RecieveDamage(damage);
+                enemy.ReceiveDamage(damage);
             }
             else
             {
